@@ -27,13 +27,14 @@ public class CategoriesController
         this.categoryDao = categoryDao;
         this.productDao = productDao;
     }
-
+    @PreAuthorize("permitAll()")
     @GetMapping
     public List<Category> getAll()
     {
         return categoryDao.getAllCategories();
     }
 
+    @PreAuthorize("permitAll()")
     @GetMapping("{id}")
     public Category getById(@PathVariable int id)
     {
@@ -45,7 +46,7 @@ public class CategoriesController
     @GetMapping("{categoryId}/products")
     public List<Product> getProductsByCategoryId(@PathVariable int categoryId)
     {
-        return categoryDao.getProductsByCategoryId(categoryId);
+        return productDao.getProductsByCategoryId(categoryId);
     }
 
     @PostMapping
