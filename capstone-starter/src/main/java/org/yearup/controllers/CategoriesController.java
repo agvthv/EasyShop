@@ -18,14 +18,14 @@ import java.util.List;
 @CrossOrigin
 public class CategoriesController
 {
-    private CategoryDao categoryDao;
-    private ProductDao productDao;
-
+    private final CategoryDao categoryDao;
+    private final ProductDao productDao;
 
     @Autowired
-    public CategoriesController(CategoryDao categoriesDao)
+    public CategoriesController(CategoryDao categoryDao, ProductDao productDao)
     {
-        this.categoryDao = categoriesDao;
+        this.categoryDao = categoryDao;
+        this.productDao = productDao;
     }
 
     @GetMapping
@@ -40,23 +40,20 @@ public class CategoriesController
         return categoryDao.getById(id);
     }
 
-    // the url to return all products in category 1 would look like this
+    // The URL to return all products in category 1 would look like this
     // https://localhost:8080/categories/1/products
-    //changed this from @GetMapping to @RequestMapping
-    @RequestMapping(path = "/categories/{categoryId}/products", method = RequestMethod.GET)
-    public List<Product> getProductsById(@PathVariable int categoryId)
+    @GetMapping("{categoryId}/products")
+    public List<Product> getProductsByCategoryId(@PathVariable int categoryId)
     {
         return categoryDao.getProductsByCategoryId(categoryId);
     }
 
-
-    @PostMapping("/categories")
+    @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public Category addNewCategory(@RequestBody Category category)
     {
         return categoryDao.create(category);
-        // add didn't appear for me. Is it the same as create?
     }
 
     @PutMapping("{id}")
@@ -67,21 +64,11 @@ public class CategoriesController
         categoryDao.update(id, category);
     }
 
-
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable int id) throws SQLException
     {
         categoryDao.delete(id);
-//        try
-//        {
-//            categoryDao.delete(id);
-//        }
-//        catch (SQLException e)
-//        {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot delete a category that has products.");
-//        }
     }
 }
-

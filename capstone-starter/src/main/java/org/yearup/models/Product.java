@@ -30,6 +30,10 @@ public class Product
         this.isFeatured = isFeatured;
         this.imageUrl = imageUrl;
     }
+// intellij recommended me to add this when i made my mapToProducts on categoryDAO
+    public Product(int productId, String productName, String description)
+    {
+    }
 
     public int getProductId()
     {
