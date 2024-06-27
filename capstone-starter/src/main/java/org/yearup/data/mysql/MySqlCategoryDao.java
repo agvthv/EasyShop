@@ -27,9 +27,9 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         try (Connection connection = dataSource.getConnection())
         {
             String sql = """
-                    SELECT CategoryId
-                        , CategoryName
-                        , Description
+                    SELECT category_id
+                        , name
+                        , description
                     FROM categories;
                     """;
              PreparedStatement statement = connection.prepareStatement(sql);
@@ -51,11 +51,11 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         try(Connection connection = dataSource.getConnection())
         {
             String sql = """
-                    SELECT CategoryId
-                        , CategoryName
-                        , Description
+                    SELECT category_id
+                        , name
+                        , description
                     FROM categories
-                    WHERE CategoryId = ?;
+                    WHERE category_id = ?;
                     """;
 
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -83,7 +83,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         try(Connection connection = dataSource.getConnection())
         {
             String sql = """
-                    INSERT INTO categories (CategoryName, Description)
+                    INSERT INTO categories (name, description)
                     VALUES (?, ?);
                     """;
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -111,9 +111,9 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         {
             String sql = """
                     UPDATE categories 
-                    SET CategoryName = ?
-                        , Description = ?
-                    WHERE categoryId = ?;
+                    SET name = ?
+                        , description = ?
+                    WHERE category_id = ?;
                     """;
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -134,8 +134,8 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         try (Connection connection = dataSource.getConnection()) {
             String sqlProducts = """
                     UPDATE products 
-                    SET CategoryId = NULL
-                    WHERE CategoryId = ?;
+                    SET category_id = NULL
+                    WHERE category_id = ?;
                     """;
             PreparedStatement statementProducts = connection.prepareStatement(sqlProducts);
             statementProducts.setInt(1, categoryId);
@@ -144,7 +144,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
 
             String sql = """
                     DELETE FROM categories
-                    WHERE categoryId = ?;
+                    WHERE category_id = ?;
                     """;
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, categoryId);
@@ -163,11 +163,11 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         try (Connection connection = dataSource.getConnection())
         {
             String sql = """
-                    SELECT ProductId
-                        , ProductName
-                        , Description
-                    FROM products;
-                    WHERE category_ID = ?
+                    SELECT product_id
+                        , name
+                        , description
+                    FROM products
+                    WHERE category_id = ?
                     """;
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet row = statement.executeQuery(sql);
@@ -184,17 +184,17 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
 
     private Category mapRowToCategory(ResultSet row) throws SQLException
     {
-        int categoryId = row.getInt("CategoryId");
-        String categoryName = row.getString("CategoryName");
-        String description = row.getString("Description");
+        int categoryId = row.getInt("category_id");
+        String categoryName = row.getString("name");
+        String description = row.getString("description");
 
         return new Category(categoryId, categoryName, description);
     }
     private Product mapRowToProduct(ResultSet row) throws SQLException
     {
-        int productId = row.getInt("ProductId");
-        String productName = row.getString("ProductName");
-        String description = row.getString("Description");
+        int productId = row.getInt("product_id");
+        String productName = row.getString("name");
+        String description = row.getString("description");
 
         return new Product(productId, productName, description);
     }

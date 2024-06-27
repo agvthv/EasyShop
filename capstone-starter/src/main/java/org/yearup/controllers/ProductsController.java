@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("products")
+@RequestMapping("/products")
 @CrossOrigin
 public class ProductsController
 {
@@ -26,7 +26,7 @@ public class ProductsController
 
     @GetMapping("")
     @PreAuthorize("permitAll()")
-    public List<Product> search(@RequestParam(name="id", required = false) Integer categoryId,
+    public List<Product> search(@RequestParam(name="cat", required = false) Integer categoryId,
                                 @RequestParam(name="minPrice", required = false) BigDecimal minPrice,
                                 @RequestParam(name="maxPrice", required = false) BigDecimal maxPrice,
                                 @RequestParam(name="color", required = false) String color

@@ -166,7 +166,7 @@ public class MySqlProductDao extends MySqlDaoBase implements ProductDao
             statement.setString(6, product.getImageUrl());
             statement.setInt(7, product.getStock());
             statement.setBoolean(8, product.isFeatured());
-            statement.setInt(9, productId);
+            statement.setInt(9, product.getProductId());
 
             statement.executeUpdate();
         }
