@@ -1,0 +1,16 @@
+{{#products}}
+<div class="product">
+    <h4 class="product-title">{{name}}</h4>
+    <h4 class="price">${{price}}</h4>
+    <div class="photo">
+        <img src="/images/products/{{imageUrl}}" alt=""
+             onclick="showImageDetailForm(`{{name}}`,'/images/products/{{imageUrl}}')">
+    </div>
+    <div class="product-description">
+        <p>{{description}}</p>
+    </div>
+    <div class="add-button">
+        <button class="btn btn-success" onclick="cartService.addToCart({{productId}})">Add to Cart</button>
+    </div>
+</div>
+{{/products}}

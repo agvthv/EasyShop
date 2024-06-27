@@ -1,0 +1,39 @@
+{{#loggedin}}
+<header>
+    <div class="nav-container">
+        <nav class="links">
+            <a href="#" onclick="loadHome()">Home</a>
+            <a href="#" onclick="editProfile()">Profile</a>
+            <a href="#" onclick="showCart()">View Cart</a>
+        </nav>
+    </div>
+    <div class="logo-container">
+        <img src="/images/updated.png" alt="easyshop logo">
+    </div>
+    <div class="cart-container">
+        <div class="user-info">
+            Welcome&nbsp;<span style="font-weight: bold">{{username}}</span>&nbsp;|&nbsp;<a href="#" class="logout-link" onclick="userService.logout();return false;">logout</a>
+            <div class="cart" onclick="showCart()">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <div id="cart-items">0</div>
+            </div>
+        </div>
+    </div>
+</header>
+{{/loggedin}}
+{{#loggedout}}
+<header>
+    <div class="nav-container">
+        <nav class="links">
+            <a href="#" onclick="loadHome()">Home</a>
+        </nav>
+    </div>
+    <div class="logo-container">
+        <img src="/images/updated.png" alt="easyshop logo">
+    </div>
+    <div class="links">
+        <a href="#" class="mr-5" onclick="showLoginForm();return false;">login</a>
+        <a href="#" onclick="showRegisterForm();return false;">register</a>
+    </div>
+</header>
+{{/loggedout}}
