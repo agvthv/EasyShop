@@ -1,6 +1,7 @@
 package org.yearup.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -42,34 +43,40 @@ public class CategoriesController
 
     @PreAuthorize("permitAll()")
     @GetMapping("{id}")
-    public Category getById(@PathVariable int id)
-    {
+    public Category getById(@PathVariable int id) {
         try {
             var category = categoryDao.getById(id);
 
-            if (category == null)
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            if (category == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found.");
+            }
 
             return category;
+        } catch (ResponseStatusException ex) {
+            throw ex;
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
 
-    // The URL to return all products in category 1 would look like this
-    // https://localhost:8080/categories/1/products
+
+    @PreAuthorize("permitAll()")
     @GetMapping("{categoryId}/products")
     public List<Product> getProductsByCategoryId(@PathVariable int categoryId)
     {
         try {
             var prodByCat = productDao.getProductsByCategoryId(categoryId);
 
-            if (prodByCat == null)
+            if (prodByCat == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            }
+            else
+            {
+                return prodByCat;
+            }
 
-            return prodByCat;
-        } catch (Exception ex) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -100,17 +107,22 @@ public class CategoriesController
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCategory(@PathVariable int id) throws SQLException
-    {
-        try {
+    public void deleteCategory(@PathVariable int id) {
+        try
+        {
             var category = categoryDao.getById(id);
 
-            if (category == null)
+            if(category == null)
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
             categoryDao.delete(id);
-        } catch (Exception ex) {
+        }
+        catch(Exception ex)
+        {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
-}
+    }
+
+
+
