@@ -187,23 +187,23 @@ main > .content-form .cart-item {
 .product .price {
     font-weight: 900;
     color: black;
-    margin-bottom: 10px; /* Space between price and photo */
+    margin-bottom: 10px;
 }
 
 .product .photo {
     display: flex;
-    justify-content: center; /* Center the image horizontally */
-    align-items: center; /* Center the image vertically */
-    padding: 10px; /* Adjusted padding */
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
     background: #F1F1F1
     backdrop-filter: grayscale(0.5) opacity(0.8);
 }
 
 .product .photo > img {
-    width: 100%; /* Adjust width as needed */
+    width: 100%;
     cursor: pointer;
-    border: solid 2px #F1F1F1; /* Updated border color */
-    margin: auto; /* Center the image */
+    border: solid 2px #F1F1F1;
+    margin: auto;
 }
 
 .product .product-description {
@@ -217,7 +217,6 @@ main > .content-form .cart-item {
     justify-content: center;
     align-items: center;
     background-color: #f48888;
-    /* Specific color for the button */
     color: white;
     border: none;
     padding: 10px;
@@ -227,16 +226,16 @@ main > .content-form .cart-item {
 }
 
 .product .add-button button:hover {
-    background-color: #f26666; /* Slightly darker shade for hover effect */
+    background-color: #f26666;
 }
 .logout-link {
     color: red; /* Set the text color to red */
-    text-decoration: none; /* Remove underline from the link */
-    font-weight: bold; /* Optional: make the text bold */
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .logout-link:hover {
-    color: darkred; /* Change color on hover for better user experience */
+    color: darkred;
 }
 
 
