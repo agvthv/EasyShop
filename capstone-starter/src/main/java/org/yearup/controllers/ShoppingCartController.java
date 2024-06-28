@@ -13,9 +13,7 @@ import org.yearup.models.User;
 
 import java.security.Principal;
 
-@RestController
-@PreAuthorize("isAuthenticated()")
-@CrossOrigin
+
 public class ShoppingCartController
 {
     private ShoppingCartDao shoppingCartDao;
