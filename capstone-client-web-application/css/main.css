@@ -186,7 +186,7 @@ main > .content-form .cart-item {
 
 .product .price {
     font-weight: 900;
-    color: #969391;
+    color: black;
     margin-bottom: 10px; /* Space between price and photo */
 }
 
